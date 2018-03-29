@@ -10,17 +10,23 @@ def test():
     print(df)
 
 
-def get_history(code=None, start=None, end=None):
+def init_history(code=None, start=None, end=None):
+    """
+    初始化数据，直接存入
+    :param code: 股票代码
+    :param start:开始时间，单位日
+    :param end:结束时间，单位日
+    :return:
+    """
     df = ts.get_k_data(code=code, start=start, end=end, ktype="D", autype="hfq", index=False, retry_count=3, pause=0.001)
     data = json.loads(df.to_json(orient='records'))
-    print data
 
     mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
     db = mongo_client[settings['MONGO_DB']]
-    table = db[settings['MONGO_TABLE']]
+    table = db[settings['MONGO_TABLE_STOCK_INFO']]
     table.insert(data)
     print code,  "from", start, "to", end, "存入数据库"
 
 
 if __name__ == "__main__":
-    get_history('600100', '2009-01-01', '2009-02-01')
+    init_history('600100', '2009-01-01', '2009-02-01')
