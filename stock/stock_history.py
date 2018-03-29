@@ -28,5 +28,14 @@ def init_history(code=None, start=None, end=None):
     print code,  "from", start, "to", end, "存入数据库"
 
 
+def get_one(index=0):
+    mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
+    db = mongo_client[settings['MONGO_DB']]
+    table = db[settings['MONGO_TABLE_STOCK_BASIC']]
+    row = table.find().limit(1).skip(index)
+    print row.get("code")
+
+
 if __name__ == "__main__":
-    init_history('600100', '2009-01-01', '2009-02-01')
+    # init_history('600100', '2009-01-01', '2009-02-01')
+    get_one(0)
