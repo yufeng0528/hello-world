@@ -23,7 +23,7 @@ def init_history(code=None, start=None, end=None):
 
     mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
     db = mongo_client[settings['MONGO_DB']]
-    table = db[settings['MONGO_TABLE_STOCK_INFO']]
+    table = db[settings['MONGO_TABLE_HISTORY']]
     table.insert(data)
     print code,  "from", start, "to", end, "存入数据库"
 
