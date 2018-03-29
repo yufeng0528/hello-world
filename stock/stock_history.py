@@ -32,10 +32,16 @@ def get_one(index=0):
     mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
     db = mongo_client[settings['MONGO_DB']]
     table = db[settings['MONGO_TABLE_STOCK_BASIC']]
-    row = table.find().limit(1).skip(index)
-    print row.get("code")
+    row = table.find().limit(1).skip(index)[0]
+    return row.get("code"), row.get("timeToMarket")
 
 
 if __name__ == "__main__":
     # init_history('600100', '2009-01-01', '2009-02-01')
-    get_one(0)
+    stock_code, date_int = get_one(0)
+    year_start = date_int/10000
+    year_max = 2019
+    for year in range(year_start, year_max):
+        # print str(year) + '-01-01', str(year) + '-12-31'
+        init_history(stock_code, str(year) + '-01-01', str(year) + '-12-31')
+
