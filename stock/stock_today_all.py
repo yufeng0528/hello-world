@@ -17,7 +17,9 @@ def get_today_all():
     mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
     db = mongo_client[settings['MONGO_DB']]
     table = db[settings['MONGO_TABLE_STOCK_TODAY_ALL']]
-    table.insert(data)
+    for item in data:
+        print item.get("code"), ".. save"
+        table.update({"code":item.get("code")}, item)
     print datetime.datetime.now().ctime(), "当天实时数据存入数据库"
 
 
