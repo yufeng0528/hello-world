@@ -19,7 +19,7 @@ def get_today_all():
     table = db[settings['MONGO_TABLE_STOCK_TODAY_ALL']]
     for item in data:
         print item.get("code"), ".. save"
-        table.update({"code":item.get("code")}, item)
+        table.update({"code":item.get("code")}, item, True)
     print datetime.datetime.now().ctime(), "当天实时数据存入数据库"
 
 
