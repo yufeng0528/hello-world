@@ -17,7 +17,7 @@ log.addHandler(h)
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-16', minute='0-59', second='*/30')
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-17', minute='0-59', second='*/30')
 def stock_runtime_job():
     get_today_all()
 

@@ -5,6 +5,7 @@ import pymongo
 import json
 import datetime
 from setting import settings
+import quantbase
 
 
 def get_today_all():
@@ -14,9 +15,7 @@ def get_today_all():
     df = ts.get_today_all()
     data = json.loads(df.to_json(orient='records'))
 
-    mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
-    db = mongo_client[settings['MONGO_DB']]
-    table = db[settings['MONGO_TABLE_STOCK_TODAY_ALL']]
+    table = quantbase.get_mongo_table_instance(settings['MONGO_TABLE_STOCK_TODAY_ALL'])
     for item in data:
         print item.get("code"), ".. save"
         table.update({"code":item.get("code")}, item, True)

@@ -5,6 +5,8 @@ import pymongo
 import json
 import datetime
 from setting import settings
+import quantbase
+
 
 def test():
     df = ts.get_hist_data("510050")
@@ -24,9 +26,8 @@ def init_history(code=None, start=None, end=None):
     if len(data) == 0:
         print code, "from", start, "to", end, "没有数据"
         return
-    mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
-    db = mongo_client[settings['MONGO_DB']]
-    table = db[settings['MONGO_TABLE_HISTORY']]
+
+    table = quantbase.get_mongo_table_instance(settings['MONGO_TABLE_HISTORY'])
     table.insert(data)
     print code,  "from", start, "to", end, "存入数据库"
 
@@ -34,7 +35,9 @@ def init_history(code=None, start=None, end=None):
 def get_one(index=0):
     mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
     db = mongo_client[settings['MONGO_DB']]
+    db.authenticate(settings['MONGO_DB_USER'], settings['MONGO_DB_PSW'])
     table = db[settings['MONGO_TABLE_STOCK_BASIC']]
+    table = quantbase.get_mongo_table_instance(settings['MONGO_TABLE_HISTORY'])
     row = table.find().limit(1).skip(index)[0]
     return row.get("code"), row.get("timeToMarket")
 
@@ -42,6 +45,7 @@ def get_one(index=0):
 def get_last_day():
     mongo_client = pymongo.MongoClient(settings['MONGO_SERVER'], settings['MONGO_PORT'])
     db = mongo_client[settings['MONGO_DB']]
+    db.authenticate(settings['MONGO_DB_USER'], settings['MONGO_DB_PSW'])
     table = db[settings['MONGO_TABLE_STOCK_BASIC']]
     rows = table.find()
     for row in rows:
