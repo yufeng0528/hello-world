@@ -18,7 +18,7 @@ sched = BlockingScheduler()
 sched.daemonic = True
 
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-17', minute='0-59', second='*/30')
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-17', minute='*/1')
 def stock_runtime_job():
     get_today_all()
 
