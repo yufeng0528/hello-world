@@ -7,11 +7,17 @@ from stock_history import *
 import logging
 
 
-logging.basicConfig()
+log = logging.getLogger('apscheduler.executors.default')
+log.setLevel(logging.INFO)  # DEBUG
+
+fmt = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
+h = logging.StreamHandler()
+h.setFormatter(fmt)
+log.addHandler(h)
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-15', minute='0-59', second='*/30')
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-16', minute='0-59', second='*/30')
 def stock_runtime_job():
     print datetime.datetime.now()
     print("stock_runtime_job start>>>")
