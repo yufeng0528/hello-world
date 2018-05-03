@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 import datetime
 from stock_today_all import *
 from stock_history import *
@@ -14,8 +14,8 @@ fmt = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
 h = logging.StreamHandler()
 h.setFormatter(fmt)
 log.addHandler(h)
-sched = BackgroundScheduler()
-sched.daemonic = False
+sched = BlockingScheduler()
+sched.daemonic = True
 
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-17', minute='0-59', second='*/30')
