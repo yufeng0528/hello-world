@@ -11,7 +11,7 @@ logging.basicConfig()
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-16', minute='0-59', second='*/30')
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-15', minute='0-59', second='*/30')
 def stock_runtime_job():
     print datetime.datetime.now()
     print("stock_runtime_job start>>>")
