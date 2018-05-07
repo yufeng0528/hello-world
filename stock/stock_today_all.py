@@ -22,6 +22,20 @@ def get_today_all():
     print datetime.datetime.now().ctime(), "当天实时数据存入数据库"
 
 
+def get_day_all():
+    """
+    当前全市场实时数据，每五分钟取一次
+    """
+    df = ts.get_day_all()
+    data = json.loads(df.to_json(orient='records'))
+
+    table = quantbase.get_mongo_table_instance("stock_day_all")
+    for item in data:
+        print item.get("code"), ".. save"
+        table.update({"code":item.get("code")}, item, True)
+    print datetime.datetime.now().ctime(), "当天实时数据存入数据库"
+
+
 if __name__ == "__main__":
-    get_today_all()
+    get_day_all()
 

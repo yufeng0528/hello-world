@@ -18,7 +18,7 @@ sched = BackgroundScheduler()
 sched.daemonic = True
 
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-17', minute='*/5')
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-15', minute='*/5')
 def stock_runtime_job():
     get_today_all()
 
