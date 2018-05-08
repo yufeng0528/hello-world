@@ -5,6 +5,7 @@ import datetime
 from stock_today_all import *
 from stock_history import *
 import logging
+import time
 
 
 log = logging.getLogger('apscheduler.executors.default')
@@ -31,5 +32,5 @@ def stock_history_job():
 sched.start()
 
 while True:
-    pass
+    time.sleep(10)
 
