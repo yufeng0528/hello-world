@@ -21,10 +21,10 @@ sched.daemonic = True
 
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour='9-15', minute='*/5')
 def stock_runtime_job():
-    get_today_all()
+    get_today_all_sina()
 
 
-@sched.scheduled_job('cron', day_of_week='mon-fri', hour='17', minute='5')
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour='15', minute='35')
 def stock_history_job():
     get_last_day()
 
