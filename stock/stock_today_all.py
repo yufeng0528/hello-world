@@ -1,13 +1,11 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 import tushare as ts
-import pymongo
 import json
 import datetime
 from setting import settings
 import quantbase
 from sina import Sina
-import helpers
 
 
 def get_today_all():
@@ -40,7 +38,6 @@ def get_today_all_sina():
     table = quantbase.get_mongo_table_instance(settings['MONGO_TABLE_STOCK_TODAY_ALL'])
     stock_day_data = sina.get_stock_data(stock_codes)
     for item in stock_day_data:
-        print item.get("code"), ".. save"
         table.update({"code":item.get("code")}, item, True)
 
     print datetime.datetime.now().ctime(), "当天实时数据存入数据库"
