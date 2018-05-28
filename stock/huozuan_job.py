@@ -4,6 +4,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
 from stock_today_all import *
 from stock_history import *
+from stock_code import *
 import logging
 import time
 
@@ -37,6 +38,11 @@ def stock_runtime_job():
 @sched.scheduled_job('cron', day_of_week='mon-fri', hour='15', minute='35')
 def stock_history_job():
     get_last_day()
+
+
+@sched.scheduled_job('cron', day_of_week='mon-fri', hour='15', minute='35')
+def stock_history_job():
+    init_stock_code()
 
 
 sched.start()

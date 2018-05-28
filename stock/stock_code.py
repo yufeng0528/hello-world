@@ -23,7 +23,9 @@ def init_stock_code():
     # df.to_csv(path_or_buf='d/log.txt')
 
     table = quantbase.get_mongo_table_instance(settings['MONGO_TABLE_STOCK_BASIC'])
-    table.insert(data)
+    for stock in data:
+        table.update({"code": stock.get("code")}, stock, True)
+
     print "股票代码存入数据库"
 
 
