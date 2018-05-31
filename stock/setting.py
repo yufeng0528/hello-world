@@ -11,5 +11,5 @@ settings = {
           "MONGO_TABLE_STOCK_CODE": "dfcf_code",
           "MONGO_TABLE_STOCK_TODAY_ALL": "stock_today_all",
           "MONGO_DB_USER": "root",
-          "MONGO_DB_PSW": "123456",
+          "MONGO_DB_PSW": "hj123456",
           }
