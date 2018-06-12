@@ -3,8 +3,10 @@
 from binance.client import Client
 from binance.enums import *
 
+
 client = Client('',
                 '')
+
 # get market depth
 depth = client.get_order_book(symbol='BTCUSDT')
 print 'bids 买:---'
