@@ -38,7 +38,7 @@ def save(coin_info):
 
 
 if __name__ == "__main__":
-    for i in range(1, 3000):
+    for i in range(1, 2400):
         info = get_data_from_server("https://api.finbtc.net/app//coin/detail/jk?coinId=" + str(i))
         print info
         info = json.loads(info)
