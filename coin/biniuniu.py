@@ -4,6 +4,7 @@ import urllib2
 import pymongo
 import json
 
+
 # http请求
 def get_data_from_server(strurl, bKeepResposeOriginal=False):
     if strurl is None or len(strurl) == 0:
@@ -29,15 +30,16 @@ def get_data_from_server(strurl, bKeepResposeOriginal=False):
 
     return strresponse
 
+
 def save(coin_info):
     mongo_client = pymongo.MongoClient('127.0.0.1', 27017)
     db = mongo_client['coin']
     db.authenticate('root1', '123456')
     table = db['coin_info']
-    table.update({'cid': code_info.get('cid')}, code_info, upsert=True)
+    table.update({'cid': coin_info.get('cid')}, coin_info, upsert=True)
 
 
-if __name__ == "__main__":
+def save_all_coin():
     for i in range(1, 2400):
         info = get_data_from_server("https://api.finbtc.net/app//coin/detail/jk?coinId=" + str(i))
         print info
@@ -45,3 +47,7 @@ if __name__ == "__main__":
         code_info = info.get('data')
         code_info['cid'] = i;
         save(code_info)
+
+
+if __name__ == "__main__":
+    save_all_coin()
